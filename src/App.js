@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { SnackbarProvider } from 'notistack';
+import LoadingProvider from 'context/Loading';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MomentUtils from '@date-io/moment';
+
+import Theme from 'config/theme';
+import Navigation from 'navigation';
+import Loading from 'components/layout/Loading';
+
+import '@fontsource/roboto';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={Theme}>
+      {/* Css Reset */}
+      <CssBaseline />
+
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        {/* Notification Provider */}
+        <SnackbarProvider>
+          <LoadingProvider>
+            {/* Global Loading Component */}
+            <Loading />
+
+            <Navigation />
+          </LoadingProvider>
+        </SnackbarProvider>
+      </MuiPickersUtilsProvider>
+    </ThemeProvider>
   );
 }
 
